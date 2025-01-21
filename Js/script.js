@@ -82,3 +82,54 @@ createTaskBtn.addEventListener('click', () => {
 
 
 
+
+/* filepath: /Volumes/Drive/todo-App-1/js/script.js */
+
+
+const addSectionBtn = document.querySelector('.add-container').parentElement;
+const popup = document.querySelector('.create-section-popup');
+const closePopupBtn = document.querySelector('.close-popup');
+const cancelButton = document.querySelector('.button-cancel');
+const createSectionForm = document.getElementById('createSectionForm');
+
+function showPopup() {
+    popup.style.display = 'flex';
+}
+
+function hidePopup() {
+    popup.style.display = 'none';
+    createSectionForm.reset();
+}
+
+function createNewSection(title, color) {
+    const template = `
+        <div class="tasks-container">
+            <div class="task-header">
+                <div class="task-header-left">
+                    <i class="ri-circle-fill" style="color: ${color}"></i>
+                    <h3>${title}</h3>
+                    <span>0</span>
+                </div>
+                <button class="add-container" onclick="showPopup()">
+                            <i class="ri-add-line"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.querySelector('.tasks').insertAdjacentHTML('beforeend', template);
+}
+
+addSectionBtn.addEventListener('click', showPopup);
+closePopupBtn.addEventListener('click', hidePopup);
+cancelButton.addEventListener('click', hidePopup);
+
+createSectionForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = document.getElementById('sectionTitle').value;
+    const color = document.querySelector('input[name="priority"]:checked').value;
+    
+    createNewSection(title, color);
+    hidePopup();
+});
+
